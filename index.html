@@ -6,7 +6,21 @@
 </head>
 <body>
   <script>
-    // Your JavaScript goes here!
+    function computerPlay() {                             //Define a function which returns a random value between Rock, Paper and Scissors
+      const computerValue = Math.floor(Math.random()*3);  //Get one of three values (0, 1 or 2) and return it to computerValue
+      if (computerValue === 0) {                          //If the value of computerValue is 0, a new constant computerMove is created and gets the "Rock" value, and it is then returned...
+        const computerMove = "Rock";
+        return computerMove;
+      }
+      else if (computerValue === 1) {                     //... else if the value of computerValue is 1, a new constant computerMove is created and gets the "Paper" value, and it is then returned
+        const computerMove = "Paper";
+        return computerMove;
+      }
+      else if (computerValue === 2) {                     //... else if the value of computerValue is 2, a new constant computerMove is created and gets the "Scissors" value, and it is then returned
+        const computerMove = "Scissors";
+        return computerMove;
+      }
+    }
 
   </script>
 </body>
