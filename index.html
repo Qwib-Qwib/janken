@@ -9,16 +9,16 @@
     function computerPlay() {                                                          //Define a function which returns a random value between Rock, Paper and Scissors
       const computerValue = Math.floor(Math.random()*3);                              //Get one of three values (0, 1 or 2) and return it to computerValue
       if (computerValue === 0) {                                                      //If the value of computerValue is 0, a new constant computerMove is created and gets the "Rock" value, and it is then returned...
-        const computerMove = "Rock";
-        return computerMove;
+        const computerSelection = "Rock";
+        return computerSelection;
       }
       else if (computerValue === 1) {                                                 //... else if the value of computerValue is 1, a new constant computerMove is created and gets the "Paper" value, and it is then returned
-        const computerMove = "Paper";
-        return computerMove;
+        const computerSelection = "Paper";
+        return computerSelection;
       }
       else if (computerValue === 2) {                                                 //... else if the value of computerValue is 2, a new constant computerMove is created and gets the "Scissors" value, and it is then returned
-        const computerMove = "Scissors";
-        return computerMove;
+        const computerSelection = "Scissors";
+        return computerSelection;
       }
     }
 
@@ -26,22 +26,68 @@
       playerSelection = playerSelection.toLowerCase();                                //Put the player input in lower case so that it can then have its first letter be capitalized
       playerSelection = playerSelection[0].toUpperCase() + playerSelection.slice(1);  //Concatenate the first letter capitalized (REMEMBER its index is 0!) and the rest of the string
       if (playerSelection === "Rock" && computerSelection === "Paper") {
-        return lose = "You lose! Paper beats Rock.";
+        console.log("You lose! Paper beats Rock.");
+        return result = "You lose! Paper beats Rock.";
       } else if (playerSelection === "Rock" && computerSelection === "Scissors") {
-          return win = "You win! Rock beats Scissors.";
+          console.log("You win! Rock beats Scissors.");                                //Returns don't actually print themselves to the console, so we have to use console.log to inform the player of the outcome
+          return result = "You win! Rock beats Scissors.";
       } else if (playerSelection === "Paper" && computerSelection === "Rock") {
-          return win = "You win! Paper beats Rock.";
+          console.log("You win! Paper beats Rock.");  
+          return result = "You win! Paper beats Rock.";
       } else if (playerSelection === "Paper" && computerSelection === "Scissors") {
-          return lose = "You lose! Scissors beat Paper.";
+          console.log("You lose! Scissors beat Paper.");
+          return result = "You lose! Scissors beat Paper.";
       } else if (playerSelection === "Scissors" && computerSelection === "Rock") {
-          return lose = "You lose! Rock beats Scissors.";
+          console.log("You lose! Rock beats Scissors.");
+          return result = "You lose! Rock beats Scissors.";
       } else if (playerSelection === "Scissors" && computerSelection === "Paper") {
-          return win = "You win! Scissors beat Paper.";
+          console.log("You win! Scissors beat Paper.");
+          return result = "You win! Scissors beat Paper.";
       } else if (playerSelection === computerSelection) {
-          return tie = "It's a tie!";
+          console.log("It's a tie!");
+          return result = "It's a tie!";
       }
     }
 
+    function game() {
+      let i = 0;
+      let winTally = 0;
+      let loseTally = 0;
+      let tieTally = 0;
+      const scoreBoard = [];
+      while (i < 5) {
+        playerSelection = prompt("Type your move!");
+        playerSelection = playerSelection.toLowerCase();
+        while (playerSelection != "rock" && playerSelection != "paper" && playerSelection != "scissors") {
+          playerSelection = prompt("Sorry, your answer isn't valid.");
+        }
+        const computerSelection = computerPlay();                                         //The function return value, which is the computer move, is stored in a variable local to game() so that it can be used by other functions called by game()
+        const roundResult = singleRound(playerSelection, computerSelection);              //Same reasoning as before, the return value is used to update the tallies and score board
+        if (roundResult === "You win! Scissors beat Paper." || roundResult === "You win! Paper beats Rock." || roundResult === "You win! Rock beats Scissors.") {
+          scoreBoard.push("Win");
+          ++winTally;
+        } else if (roundResult === "You lose! Paper beats Rock." || roundResult === "You lose! Scissors beat Paper." || roundResult === "You lose! Rock beats Scissors.") {
+          scoreBoard.push("Loss");
+          ++loseTally;
+        } else {
+          scoreBoard.push("Tie");
+          ++tieTally;
+        }
+        ++i;
+      }
+      if (winTally > loseTally) {
+        console.log(scoreBoard);
+        console.log("Looks like you won! Congratulation!");
+      } else if (loseTally > winTally) {
+        console.log(scoreBoard);
+        console.log("You lost. Well, better luck next time!");
+      } else {
+        console.log(scoreBoard);
+        console.log("A tie. Boooooooriiiiiing!");
+      }
+    }
+
+    game();
   </script>
 </body>
 </html>
