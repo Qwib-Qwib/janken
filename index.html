@@ -49,43 +49,40 @@
       }
     }
 
-    function game() {
-      let i = 0;                                                                          //These values get incremented during the course of the code, so they can't be const
+    function game() {                                                                       //These values get incremented during the course of the code, so they can't be const
       let winTally = 0;
       let loseTally = 0;
       let tieTally = 0;
       const scoreBoard = [];
-      while (i < 5) {
-        playerSelection = prompt("Type your move!");
-        playerSelection = playerSelection.toLowerCase();
-        while (playerSelection != "rock" && playerSelection != "paper" && playerSelection != "scissors") {
-          playerSelection = prompt("Sorry, your answer isn't valid.");
-        }
-        const computerSelection = computerPlay();                                         //The function return value, which is the computer move, is stored in a variable local to game() so that it can be used by other functions called by game()
-        const roundResult = singleRound(playerSelection, computerSelection);              //Same reasoning as before, the return value is used to update the tallies and score board
-        if (roundResult === "You win! Scissors beat Paper." || roundResult === "You win! Paper beats Rock." || roundResult === "You win! Rock beats Scissors.") {
-          scoreBoard.push("Win");
-          ++winTally;
-        } else if (roundResult === "You lose! Paper beats Rock." || roundResult === "You lose! Scissors beat Paper." || roundResult === "You lose! Rock beats Scissors.") {
-          scoreBoard.push("Loss");
-          ++loseTally;
-        } else {
-          scoreBoard.push("Tie");
-          ++tieTally;
-        }
-        ++i;
+      playerSelection = prompt("Type your move!");
+      playerSelection = playerSelection.toLowerCase();
+      while (playerSelection != "rock" && playerSelection != "paper" && playerSelection != "scissors") {
+        playerSelection = prompt("Sorry, your answer isn't valid.");
       }
-      if (winTally > loseTally) {
-        console.log(scoreBoard);
-        console.log("Looks like you won! Congratulation!");
-      } else if (loseTally > winTally) {
-        console.log(scoreBoard);
-        console.log("You lost. Well, better luck next time!");
+      const computerSelection = computerPlay();                                         //The function return value, which is the computer move, is stored in a variable local to game() so that it can be used by other functions called by game()
+      const roundResult = singleRound(playerSelection, computerSelection);              //Same reasoning as before, the return value is used to update the tallies and score board
+      if (roundResult === "You win! Scissors beat Paper." || roundResult === "You win! Paper beats Rock." || roundResult === "You win! Rock beats Scissors.") {
+        scoreBoard.push("Win");
+        ++winTally;
+      } else if (roundResult === "You lose! Paper beats Rock." || roundResult === "You lose! Scissors beat Paper." || roundResult === "You lose! Rock beats Scissors.") {
+        scoreBoard.push("Loss");
+        ++loseTally;
       } else {
-        console.log(scoreBoard);
-        console.log("A tie. Boooooooriiiiiing!");
+        scoreBoard.push("Tie");
+        ++tieTally;
       }
     }
+    if (winTally > loseTally) {
+      console.log(scoreBoard);
+      console.log("Looks like you won! Congratulation!");
+    } else if (loseTally > winTally) {
+      console.log(scoreBoard);
+      console.log("You lost. Well, better luck next time!");
+    } else {
+      console.log(scoreBoard);
+      console.log("A tie. Boooooooriiiiiing!");
+    }
+  
 
     game();
   </script>
