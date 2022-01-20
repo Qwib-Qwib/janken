@@ -5,7 +5,21 @@
   <meta charset="UTF-8"/>
 </head>
 <body>
+  <button id="rock">Rock</button>
+  <button id="paper">Paper</button>
+  <button id="scissors">Scissors</button>
   <script>
+    
+    document.getElementById("rock").addEventListener("click", () => {                 //These Event Listeners call several functions in one click event.
+      singleRound("Rock", computerPlay());
+    });
+    document.getElementById("paper").addEventListener("click", () => {
+      singleRound("Paper", computerPlay());
+    });
+    document.getElementById("scissors").addEventListener("click", () => {
+      singleRound("Scissors", computerPlay());
+    });
+
     function computerPlay() {                                                          //Define a function which returns a random value between Rock, Paper and Scissors
       const computerValue = Math.floor(Math.random()*3);                              //Get one of three values (0, 1 or 2) and return it to computerValue
       if (computerValue === 0) {                                                      //If the value of computerValue is 0, a new constant computerMove is created and gets the "Rock" value, and it is then returned...
@@ -23,8 +37,6 @@
     }
 
     function singleRound(playerSelection, computerSelection) {                        //Define a function which plays a single round. It compares both arguments and output a winner based on the result
-      playerSelection = playerSelection.toLowerCase();                                //Put the player input in lower case so that it can then have its first letter be capitalized
-      playerSelection = playerSelection[0].toUpperCase() + playerSelection.slice(1);  //Concatenate the first letter capitalized (REMEMBER its index is 0!) and the rest of the string
       if (playerSelection === "Rock" && computerSelection === "Paper") {
         console.log("You lose! Paper beats Rock.");
         return result = "You lose! Paper beats Rock.";
@@ -84,7 +96,6 @@
     }
   
 
-    game();
   </script>
 </body>
 </html>
