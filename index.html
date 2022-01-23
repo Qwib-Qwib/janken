@@ -5,9 +5,12 @@
   <meta charset="UTF-8"/>
 </head>
 <body>
+
   <button id="rock">Rock</button>
   <button id="paper">Paper</button>
   <button id="scissors">Scissors</button>
+  <div id="results"></div>
+
   <script>
     
     document.getElementById("rock").addEventListener("click", () => {                 //These Event Listeners call several functions in one click event.
@@ -38,30 +41,30 @@
 
     function singleRound(playerSelection, computerSelection) {                        //Define a function which plays a single round. It compares both arguments and output a winner based on the result
       if (playerSelection === "Rock" && computerSelection === "Paper") {
-        console.log("You lose! Paper beats Rock.");
+        document.getElementById("results").textContent = "You lose! Paper beats Rock.";
         return result = "You lose! Paper beats Rock.";
       } else if (playerSelection === "Rock" && computerSelection === "Scissors") {
-          console.log("You win! Rock beats Scissors.");                                //Returns don't actually print themselves to the console, so we have to use console.log to inform the player of the outcome
+        document.getElementById("results").textContent = "You win! Rock beats Scissors.";                               //Returns don't actually print themselves to the console, so we have to use console.log to inform the player of the outcome
           return result = "You win! Rock beats Scissors.";
       } else if (playerSelection === "Paper" && computerSelection === "Rock") {
-          console.log("You win! Paper beats Rock.");  
+        document.getElementById("results").textContent = "You win! Paper beats Rock.";
           return result = "You win! Paper beats Rock.";
       } else if (playerSelection === "Paper" && computerSelection === "Scissors") {
-          console.log("You lose! Scissors beat Paper.");
+        document.getElementById("results").textContent = "You lose! Scissors beat Paper.";
           return result = "You lose! Scissors beat Paper.";
       } else if (playerSelection === "Scissors" && computerSelection === "Rock") {
-          console.log("You lose! Rock beats Scissors.");
+        document.getElementById("results").textContent = "You lose! Rock beats Scissors.";
           return result = "You lose! Rock beats Scissors.";
       } else if (playerSelection === "Scissors" && computerSelection === "Paper") {
-          console.log("You win! Scissors beat Paper.");
+        document.getElementById("results").textContent = "You win! Scissors beat Paper.";
           return result = "You win! Scissors beat Paper.";
       } else if (playerSelection === computerSelection) {
-          console.log("It's a tie!");
+        document.getElementById("results").textContent = "It's a tie!";
           return result = "It's a tie!";
       }
     }
 
-    function game() {                                                                       //These values get incremented during the course of the code, so they can't be const
+    function keepTally() {                                                                       //These values get incremented during the course of the code, so they can't be const
       let winTally = 0;
       let loseTally = 0;
       let tieTally = 0;
@@ -84,6 +87,7 @@
         ++tieTally;
       }
     }
+
     if (winTally > loseTally) {
       console.log(scoreBoard);
       console.log("Looks like you won! Congratulation!");
