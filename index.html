@@ -13,8 +13,12 @@
 
 </body>
 
-<script type="module">
-    
+<script type="module">                                                              //Turns the global scope into a module so global variables are protected.
+
+  let winTally = 0;
+  let loseTally = 0;
+  let tieTally = 0;
+  
   document.getElementById("rock").addEventListener("click", () => {                 //These Event Listeners call several functions in one click event.
     singleRound("Rock", computerPlay());
   });
@@ -24,6 +28,10 @@
   document.getElementById("scissors").addEventListener("click", () => {
     singleRound("Scissors", computerPlay());
   });
+
+  const scoreBoard = document.createElement("div");
+  document.body.appendChild(scoreBoard);
+  scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
 
   function computerPlay() {                                                          //Define a function which returns a random value between Rock, Paper and Scissors
     const computerValue = Math.floor(Math.random()*3);                              //Get one of three values (0, 1 or 2) and return it to computerValue
@@ -44,35 +52,43 @@
   function singleRound(playerSelection, computerSelection) {                        //Define a function which plays a single round. It compares both arguments and output a winner based on the result
     if (playerSelection === "Rock" && computerSelection === "Paper") {
       document.getElementById("results").textContent = "You lose! Paper beats Rock.";
+      ++loseTally;
+      scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
       return result = "You lose! Paper beats Rock.";
     } else if (playerSelection === "Rock" && computerSelection === "Scissors") {
-      document.getElementById("results").textContent = "You win! Rock beats Scissors.";                               //Returns don't actually print themselves to the console, so we have to use console.log to inform the player of the outcome
+        document.getElementById("results").textContent = "You win! Rock beats Scissors.";                               //Returns don't actually print themselves to the console, so we have to use console.log to inform the player of the outcome
+        ++winTally;
+        scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
         return result = "You win! Rock beats Scissors.";
     } else if (playerSelection === "Paper" && computerSelection === "Rock") {
-      document.getElementById("results").textContent = "You win! Paper beats Rock.";
+        document.getElementById("results").textContent = "You win! Paper beats Rock.";
+        ++winTally;
+        scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
         return result = "You win! Paper beats Rock.";
     } else if (playerSelection === "Paper" && computerSelection === "Scissors") {
-      document.getElementById("results").textContent = "You lose! Scissors beat Paper.";
+        document.getElementById("results").textContent = "You lose! Scissors beat Paper.";
+        ++loseTally;
+        scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
         return result = "You lose! Scissors beat Paper.";
     } else if (playerSelection === "Scissors" && computerSelection === "Rock") {
-      document.getElementById("results").textContent = "You lose! Rock beats Scissors.";
+        document.getElementById("results").textContent = "You lose! Rock beats Scissors.";
+        ++loseTally;
+        scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
         return result = "You lose! Rock beats Scissors.";
     } else if (playerSelection === "Scissors" && computerSelection === "Paper") {
-      document.getElementById("results").textContent = "You win! Scissors beat Paper.";
+        document.getElementById("results").textContent = "You win! Scissors beat Paper.";
+        ++winTally;
+        scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
         return result = "You win! Scissors beat Paper.";
     } else if (playerSelection === computerSelection) {
-      document.getElementById("results").textContent = "It's a tie!";
+        document.getElementById("results").textContent = "It's a tie!";
+        ++tieTally;
+        scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
         return result = "It's a tie!";
     }
   }
 
   function keepTally() {                                                                       //These values get incremented during the course of the code, so they can't be const
-    let winTally = 0;
-    let loseTally = 0;
-    let tieTally = 0;
-    const scoreBoard = document.createElement("div");
-    document.body.appendChild(scoreBoard);
-    scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
     const computerSelection = computerPlay();                                         //The function return value, which is the computer move, is stored in a variable local to game() so that it can be used by other functions called by game()
     const roundResult = singleRound(playerSelection, computerSelection);              //Same reasoning as before, the return value is used to update the tallies and score board
     while (winTally < 5 || loseTally < 5) {
@@ -93,8 +109,6 @@
     document.getElementById("results").textContent = "You lost. Well, better luck next time!";
   }
 }
-
-keepTally();
 
 
 
