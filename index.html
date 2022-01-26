@@ -79,7 +79,12 @@
         ++tieTally;
         scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
     }
-    checkForFinalResults();
+    if (winTally === 5 || loseTally === 5) {
+      checkForFinalResults();
+      winTally = 0;
+      loseTally = 0;
+      tieTally = 0;
+    }
   }
 
   function checkForFinalResults() {  
