@@ -54,61 +54,43 @@
       document.getElementById("results").textContent = "You lose! Paper beats Rock.";
       ++loseTally;
       scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
-      return result = "You lose! Paper beats Rock.";
     } else if (playerSelection === "Rock" && computerSelection === "Scissors") {
-        document.getElementById("results").textContent = "You win! Rock beats Scissors.";                               //Returns don't actually print themselves to the console, so we have to use console.log to inform the player of the outcome
+        document.getElementById("results").textContent = "You win! Rock beats Scissors.";                               //There used to be returns for each outcome, but they ended the funciton before checkForFinalResults() could be called, and they were useless, so...
         ++winTally;
         scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
-        return result = "You win! Rock beats Scissors.";
     } else if (playerSelection === "Paper" && computerSelection === "Rock") {
         document.getElementById("results").textContent = "You win! Paper beats Rock.";
         ++winTally;
         scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
-        return result = "You win! Paper beats Rock.";
     } else if (playerSelection === "Paper" && computerSelection === "Scissors") {
         document.getElementById("results").textContent = "You lose! Scissors beat Paper.";
         ++loseTally;
         scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
-        return result = "You lose! Scissors beat Paper.";
     } else if (playerSelection === "Scissors" && computerSelection === "Rock") {
         document.getElementById("results").textContent = "You lose! Rock beats Scissors.";
         ++loseTally;
         scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
-        return result = "You lose! Rock beats Scissors.";
     } else if (playerSelection === "Scissors" && computerSelection === "Paper") {
         document.getElementById("results").textContent = "You win! Scissors beat Paper.";
         ++winTally;
         scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
-        return result = "You win! Scissors beat Paper.";
     } else if (playerSelection === computerSelection) {
         document.getElementById("results").textContent = "It's a tie!";
         ++tieTally;
         scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
-        return result = "It's a tie!";
     }
+    checkForFinalResults();
   }
 
-  function keepTally() {                                                                       //These values get incremented during the course of the code, so they can't be const
-    const computerSelection = computerPlay();                                         //The function return value, which is the computer move, is stored in a variable local to game() so that it can be used by other functions called by game()
-    const roundResult = singleRound(playerSelection, computerSelection);              //Same reasoning as before, the return value is used to update the tallies and score board
-    while (winTally < 5 || loseTally < 5) {
-      if (roundResult === "You win! Scissors beat Paper." || roundResult === "You win! Paper beats Rock." || roundResult === "You win! Rock beats Scissors.") {
-        ++winTally;
-        scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
-      } else if (roundResult === "You lose! Paper beats Rock." || roundResult === "You lose! Scissors beat Paper." || roundResult === "You lose! Rock beats Scissors.") {
-        ++loseTally;
-        scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
-      } else {
-        ++tieTally;
-        scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
-      }
+  function checkForFinalResults() {  
+    const finalResults = document.createElement("div");
+    document.body.appendChild(finalResults);                                                                     //These values get incremented during the course of the code, so they can't be const
+    if (winTally === 5) {
+      finalResults.textContent = "Looks like you won! Congratulation!";
+    } else if (loseTally === 5) {
+      finalResults.textContent = "You lost. Well, better luck next time!";
     }
-    if (winTally = 5) {
-    document.getElementById("results").textContent = "Looks like you won! Congratulation!";
-  } else if (loseTally = 5) {
-    document.getElementById("results").textContent = "You lost. Well, better luck next time!";
   }
-}
 
 
 
