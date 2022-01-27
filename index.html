@@ -13,13 +13,13 @@
 
 </body>
 
-<script type="module">                                                              //Turns the global scope into a module so global variables are protected.
+<script type="module">                                                                                  //Turns the global scope into a module so global variables are protected.
 
   let winTally = 0;
   let loseTally = 0;
   let tieTally = 0;
   
-  document.getElementById("rock").addEventListener("click", () => {                 //These Event Listeners call several functions in one click event.
+  document.getElementById("rock").addEventListener("click", () => {                                     //These Event Listeners call several functions in one click event.
     singleRound("Rock", computerPlay());
   });
   document.getElementById("paper").addEventListener("click", () => {
@@ -33,29 +33,30 @@
   document.body.appendChild(scoreBoard);
   scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
 
-  function computerPlay() {                                                          //Define a function which returns a random value between Rock, Paper and Scissors
-    const computerValue = Math.floor(Math.random()*3);                              //Get one of three values (0, 1 or 2) and return it to computerValue
-    if (computerValue === 0) {                                                      //If the value of computerValue is 0, a new constant computerMove is created and gets the "Rock" value, and it is then returned...
+  function computerPlay() {                                                                             //Define a function which returns a random value between Rock, Paper and Scissors
+    const computerValue = Math.floor(Math.random()*3);                                                  //Get one of three values (0, 1 or 2) and return it to computerValue
+    if (computerValue === 0) {                                                                          //If the value of computerValue is 0, a new constant computerMove is created and gets the "Rock" value, and it is then returned...
       const computerSelection = "Rock";
       return computerSelection;
     }
-    else if (computerValue === 1) {                                                 //... else if the value of computerValue is 1, a new constant computerMove is created and gets the "Paper" value, and it is then returned
+    else if (computerValue === 1) {                                                                     //... else if the value of computerValue is 1, a new constant computerMove is created and gets the "Paper" value, and it is then returned
       const computerSelection = "Paper";
       return computerSelection;
     }
-    else if (computerValue === 2) {                                                 //... else if the value of computerValue is 2, a new constant computerMove is created and gets the "Scissors" value, and it is then returned
+    else if (computerValue === 2) {                                                                     //... else if the value of computerValue is 2, a new constant computerMove is created and gets the "Scissors" value, and it is then returned
       const computerSelection = "Scissors";
       return computerSelection;
     }
   }
 
-  function singleRound(playerSelection, computerSelection) {                        //Define a function which plays a single round. It compares both arguments and output a winner based on the result
+  function singleRound(playerSelection, computerSelection) {                                            //Define a function which plays a single round. It compares both arguments and output a winner based on the result                                       
+    cleanFinalResultsForNextMatch();
     if (playerSelection === "Rock" && computerSelection === "Paper") {
       document.getElementById("results").textContent = "You lose! Paper beats Rock.";
       ++loseTally;
       scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
     } else if (playerSelection === "Rock" && computerSelection === "Scissors") {
-        document.getElementById("results").textContent = "You win! Rock beats Scissors.";                               //There used to be returns for each outcome, but they ended the funciton before checkForFinalResults() could be called, and they were useless, so...
+        document.getElementById("results").textContent = "You win! Rock beats Scissors.";               //There used to be returns for each outcome, but they ended the funciton before checkForFinalResults() could be called, and they were useless, so...
         ++winTally;
         scoreBoard.textContent = `Wins: ${winTally}     Losses: ${loseTally}     Ties: ${tieTally}`;
     } else if (playerSelection === "Paper" && computerSelection === "Rock") {
@@ -89,7 +90,8 @@
 
   function checkForFinalResults() {  
     const finalResults = document.createElement("div");
-    document.body.appendChild(finalResults);                                                                     //These values get incremented during the course of the code, so they can't be const
+    document.body.appendChild(finalResults);                                                               
+    finalResults.id = "finalResults";
     if (winTally === 5) {
       finalResults.textContent = "Looks like you won! Congratulation!";
     } else if (loseTally === 5) {
@@ -97,7 +99,12 @@
     }
   }
 
-
+function cleanFinalResultsForNextMatch() {
+  const toBeRemoved = document.getElementById("finalResults");
+  if (toBeRemoved != null) {
+    document.body.removeChild(toBeRemoved);
+    }
+}
 
 
 
